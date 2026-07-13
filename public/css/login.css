@@ -1,0 +1,45 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+.form_container {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(
+    -45deg,
+     #0d253f,
+     #01b4e4,
+    #90cea1,
+    #ffffff
+  );
+
+  background-size: 400% 400%;
+
+  animation: gradientAnimation 5s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.image_container{
+    display: flex;
+    justify-content: center;
+}
