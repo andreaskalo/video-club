@@ -46,7 +46,7 @@ app.get("/homepage", (req, res) => {
     return res.redirect("/");
   }
 
-  return res.render("homepage.ejs");
+  return res.render("homepage.ejs", { username: req.session.tmdbUsername });
 });
 
 app.post("/login", async (req, res) => {
@@ -73,11 +73,11 @@ app.post("/login", async (req, res) => {
     const sessionId = sessionResult.data.session_id;
 
     req.session.tmdbSessionId = sessionId;
+    req.session.tmdbUsername = username;
 
     const shouldRememberUser = rememberMe === "on";
 
     if (shouldRememberUser) {
-
       // Keep the Express login for 30 days
       req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
     }
@@ -100,12 +100,29 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/home", (req, res) => {
-  if (!req.session.tmdbSessionId) {
-    return res.redirect("/login");
-  }
+app.post("/logout", async (req, res) => {
+  try {
+    await tmdb.delete("/authentication/session", {
+      data: {
+        session_id: req.session.tmdbSessionId,
+      },
+    });
 
-  res.send("Welcome to Video Club!");
+    req.session.destroy((error) => {
+      if (error) {
+        console.log("@Logout session error:", error);
+        return res.status(500).send("Could not log out");
+      }
+
+      res.clearCookie("videoClub.sid");
+
+      res.redirect("/");
+    });
+  } catch (error) {
+    console.log("@Logout error:", error.response?.data || error.message);
+
+    res.status(500).send("Logout failed");
+  }
 });
 
 app.listen(port, () => {

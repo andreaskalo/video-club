@@ -12,13 +12,7 @@ body {
   justify-content: center;
   align-items: center;
 
-  background: linear-gradient(
-    -45deg,
-     #0d253f,
-     #01b4e4,
-    #90cea1,
-    #ffffff
-  );
+  background: linear-gradient(-45deg, #0d253f, #01b4e4, #90cea1, #ffffff);
 
   background-size: 400% 400%;
 
@@ -39,7 +33,11 @@ body {
   }
 }
 
-.image_container{
-    display: flex;
-    justify-content: center;
+.image_container {
+  display: flex;
+  justify-content: center;
+}
+.header_one_container {
+  display: flex;
+  justify-content: center;
 }

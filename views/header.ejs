@@ -1,0 +1,128 @@
+<header class="p-3 mb-3 border-bottom">
+    <div class="container">
+      <div
+        class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+      >
+        <a
+          href="/"
+          class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none"
+        >
+          <img
+            src="/images/login_logo.svg"
+            alt="Video Club Logo"
+            width="40"
+            height="32"
+            class="me-2"
+          />
+        </a>
+        <ul
+          class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+        >
+          <li class="nav-item dropdown">
+            <a
+              href="#"
+              class="nav-link px-2 link-body-emphasis dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Movies
+            </a>
+
+            <ul class="dropdown-menu text-small">
+              <li><a class="dropdown-item" href="#">Top Rated</a></li>
+              <li><a class="dropdown-item" href="#">Popular</a></li>
+              <li><a class="dropdown-item" href="#">Now Playing</a></li>
+              <li><a class="dropdown-item" href="#">Upcoming</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a
+              href="#"
+              class="nav-link px-2 link-body-emphasis dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              TV Series
+            </a>
+
+            <ul class="dropdown-menu text-small">
+              <li><a class="dropdown-item" href="#">Top Rated</a></li>
+              <li><a class="dropdown-item" href="#">Popular</a></li>
+              <li><a class="dropdown-item" href="#">Airing Today</a></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- DESKTOP SEARCH -->
+        <form
+          class="d-none d-lg-block col-lg-auto mb-lg-0 me-lg-3"
+          role="search"
+        >
+          <input
+            type="search"
+            class="form-control"
+            placeholder="Search Video Club..."
+            aria-label="Search"
+          />
+        </form>
+
+        <!-- MOBILE SEARCH ICON -->
+        <button
+          class="btn d-lg-none me-3"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mobileSearch"
+          aria-expanded="false"
+          aria-controls="mobileSearch"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001
+      q.044.06.098.115l3.85 3.85a1 1 0 0 0
+      1.415-1.414l-3.85-3.85a1 1 0 0
+      0-.115-.1zM12 6.5a5.5 5.5 0 1
+      1-11 0 5.5 5.5 0 0 1 11 0"
+            />
+          </svg>
+        </button>
+        <div class="collapse d-lg-none w-100 mt-3" id="mobileSearch">
+  <form role="search">
+    <input
+      type="search"
+      class="form-control"
+      placeholder="Search Video Club..."
+      aria-label="Search"
+      autofocus
+    />
+  </form>
+</div>
+        <div class="dropdown text-end">
+          <a
+            href="#"
+            class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <span><%= username %></span>
+          </a>
+          <ul class="dropdown-menu text-small">
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <form action="/logout" method="POST">
+                <button type="submit" class="dropdown-item">Sign out</button>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+</header>
