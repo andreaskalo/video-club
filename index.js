@@ -41,12 +41,18 @@ app.get("/", (req, res) => {
   return res.redirect("/homepage");
 });
 
-app.get("/homepage", (req, res) => {
+app.get("/homepage", async (req, res) => {
   if (!req.session.tmdbSessionId) {
     return res.redirect("/");
   }
 
-  return res.render("homepage.ejs", { username: req.session.tmdbUsername });
+  const result = await tmdb.get("/movie/upcoming?language=en-US&page=1");
+  let upcomingMovies = result.data.results;
+
+  return res.render("homepage.ejs", {
+    username: req.session.tmdbUsername,
+    upcomingMovies: upcomingMovies,
+  });
 });
 
 app.post("/login", async (req, res) => {
