@@ -48,6 +48,8 @@ app.get("/homepage", async (req, res) => {
 
   const result = await tmdb.get("/movie/upcoming?language=en-US&page=1");
   let upcomingMovies = result.data.results;
+  console.log("movies:",upcomingMovies);
+  
 
   return res.render("homepage.ejs", {
     username: req.session.tmdbUsername,

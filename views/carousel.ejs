@@ -1,0 +1,175 @@
+<div class="movie-carousel">
+  <button
+    id="previousMoviesButton"
+    class="movie-carousel-button movie-carousel-button-left"
+    type="button"
+    aria-label="Show previous movies"
+    hidden
+  >
+    &lt;
+  </button>
+
+  <div class="movie-carousel-viewport">
+    <!-- This element will move left and right -->
+    <div id="movieCarouselTrack" class="movie-carousel-track">
+      <% for (let index = 0; index < movies.length; index++) { %>
+        <div class="movie-carousel-card">
+          <%- include("card.ejs", { movie: movies[index] }) %>
+        </div>
+      <% } %>
+    </div>
+  </div>
+
+  <button
+    id="nextMoviesButton"
+    class="movie-carousel-button movie-carousel-button-right"
+    type="button"
+    aria-label="Show next movies"
+  >
+    &gt;
+  </button>
+
+<script>
+  const carouselTrack = document.getElementById("movieCarouselTrack");
+  const carouselViewport = document.querySelector(
+    ".movie-carousel-viewport"
+  );
+
+  const previousButton = document.getElementById(
+    "previousMoviesButton"
+  );
+
+  const nextButton = document.getElementById(
+    "nextMoviesButton"
+  );
+
+  const movieCards = carouselTrack.querySelectorAll(
+    ".movie-carousel-card"
+  );
+
+  let currentPage = 0;
+
+  function getCardsPerPage() {
+    if (window.innerWidth <= 768) {
+      return 1;
+    }
+
+    if (window.innerWidth <= 992) {
+      return 3;
+    }
+
+    return 4;
+  }
+
+  function updateCarousel() {
+    const firstCard = movieCards[0];
+
+    if (!firstCard) {
+      previousButton.hidden = true;
+      nextButton.hidden = true;
+      return;
+    }
+
+    const cardsPerPage = getCardsPerPage();
+    const totalPages = Math.ceil(
+      movieCards.length / cardsPerPage
+    );
+
+    if (currentPage >= totalPages) {
+      currentPage = totalPages - 1;
+    }
+
+    const cardWidth =
+      firstCard.getBoundingClientRect().width;
+
+    const trackStyles =
+      window.getComputedStyle(carouselTrack);
+
+    const gap = parseFloat(trackStyles.gap) || 0;
+
+    const distanceToMove =
+      cardsPerPage * (cardWidth + gap);
+
+    carouselTrack.style.transform =
+      `translateX(-${currentPage * distanceToMove}px)`;
+
+    previousButton.hidden = currentPage === 0;
+
+    nextButton.hidden =
+      currentPage >= totalPages - 1;
+  }
+
+  function showNextPage() {
+    const cardsPerPage = getCardsPerPage();
+
+    const totalPages = Math.ceil(
+      movieCards.length / cardsPerPage
+    );
+
+    if (currentPage < totalPages - 1) {
+      currentPage++;
+      updateCarousel();
+    }
+  }
+
+  function showPreviousPage() {
+    if (currentPage > 0) {
+      currentPage--;
+      updateCarousel();
+    }
+  }
+
+  nextButton.addEventListener(
+    "click",
+    showNextPage
+  );
+
+  previousButton.addEventListener(
+    "click",
+    showPreviousPage
+  );
+
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  carouselViewport.addEventListener(
+    "touchstart",
+    function (event) {
+      touchStartX =
+        event.changedTouches[0].screenX;
+    }
+  );
+
+  carouselViewport.addEventListener(
+    "touchend",
+    function (event) {
+      touchEndX =
+        event.changedTouches[0].screenX;
+
+      handleSwipe();
+    }
+  );
+
+  function handleSwipe() {
+    const swipeDistance =
+      touchEndX - touchStartX;
+
+    const minimumSwipeDistance = 50;
+
+    if (swipeDistance < -minimumSwipeDistance) {
+      showNextPage();
+    }
+
+    if (swipeDistance > minimumSwipeDistance) {
+      showPreviousPage();
+    }
+  }
+
+  window.addEventListener("resize", function () {
+    currentPage = 0;
+    updateCarousel();
+  });
+
+  updateCarousel();
+</script>
+</div>

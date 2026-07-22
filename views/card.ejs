@@ -1,14 +1,19 @@
-<div class="card shadow-sm movie-card">
+<div class="card_container">
   <img
     src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>"
     alt="<%= movie.title %> poster"
-    class="card-img-top"
+    class="poster_size"
   />
-
-  <div class="card-body">
-    <h5 class="card-title"><%= movie.title %></h5>
-
-    <p class="card-text"><%= movie.overview %></p>
-
+  <div class="movie_details_container">
+    <div class="movie_rating">
+      <img
+        src="/images/star.png"
+        alt="<%= movie.title %> poster"
+        height="15px"
+        width="15px"
+      />
+      <span><%= parseFloat(movie.vote_average).toFixed(1) %></span>
+    </div>
+    <span><%= movie.title %></span>
   </div>
 </div>

@@ -3,3 +3,42 @@ body {
   margin: 0;
   height: 100%;
 }
+
+.homepage_container {
+  display: flex;
+  height: 100%;
+}
+.left_column {
+  width: 25%;
+  height: 100%;
+}
+.main_content {
+  width: 50%;
+  height: 100%;
+}
+.right_column {
+  width: 25%;
+  height: 100%;
+}
+
+.upcomingMovies{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .homepage_container {
+    display: block;
+  }
+
+  .left_column,
+  .right_column {
+    display: none;
+  }
+
+  .main_content {
+    width: 100%;
+    height: auto;
+  }
+}
