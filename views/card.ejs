@@ -1,19 +1,27 @@
-<div class="card_container">
-  <img
-    src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>"
-    alt="<%= movie.title %> poster"
-    class="poster_size"
-  />
-  <div class="movie_details_container">
-    <div class="movie_rating">
-      <img
-        src="/images/star.png"
-        alt="<%= movie.title %> poster"
-        height="15px"
-        width="15px"
-      />
-      <span><%= parseFloat(movie.vote_average).toFixed(1) %></span>
+<a
+  href="<%= isMovie
+    ? `/movieDetails/${movie.id}`
+    : `/tvShowDetails/${movie.id}` %>"
+  style="text-decoration: none; color: white"
+>
+  <div class="card_container" id="<%= movie.id %>">
+    <img
+      src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>"
+      alt="<%= movie.title || movie.name || 'Poster' %>"
+      class="poster_size"
+    />
+
+    <div class="movie_details_container">
+      <div class="movie_rating">
+        <img
+          src="/images/star.png"
+          alt="<%= movie.title %> poster"
+          height="15px"
+          width="15px"
+        />
+        <span><%= parseFloat(movie.vote_average).toFixed(1) %></span>
+      </div>
+      <span><%= movie?.title || movie?.name || "Unknown title" %></span>
     </div>
-    <span><%= movie.title %></span>
   </div>
-</div>
+</a>
