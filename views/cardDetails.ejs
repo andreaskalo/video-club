@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/cardDetails.css" />
+  </head>
+  <body>
+    <%- include("header.ejs", { username }) %>
+    <div class="cardDetails_container">
+      <div class="left_column"></div>
+      <div class="main_content">
+        <div class="header_container">
+          <div class="details_container">
+            <span>
+              <%= details.title || details.name %>
+            </span>
+            <span>
+              <i><%= details.tagline %></i>
+            </span>
+          </div>
+        </div>
+        <div class="image_trailer_container">
+          <div class="image_container">
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= details.poster_path %>"
+              alt="<%= details.title || details.name || 'Poster' %>"
+              class="poster_size"
+            />
+          </div>
+          <% if (trailer) { %>
+          <div class="trailer_section">
+            <div class="trailer_container">
+              <iframe
+                src="https://www.youtube.com/embed/<%= trailer.key %>"
+                title="<%= details.title || details.name || 'Trailer' %>"
+                allow="
+                  accelerometer;
+                  autoplay;
+                  clipboard-write;
+                  encrypted-media;
+                  gyroscope;
+                  picture-in-picture;
+                  web-share;
+                "
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <% } else { %>
+          <div class="trailer_section">
+            <p>No trailer is available for this title.</p>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="right_column"></div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

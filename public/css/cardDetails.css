@@ -1,0 +1,139 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+.cardDetails_container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+.left_column {
+  width: 25%;
+  height: 100%;
+  background-color: red;
+}
+.main_content {
+  width: 50%;
+  height: 100%;
+  background-color: gold;
+  display: flex;
+  flex-direction: column;
+}
+.right_column {
+  width: 25%;
+  height: 100%;
+  background-color: brown;
+}
+
+.header_container {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  background-color: aquamarine;
+}
+
+.image_container {
+  width: 100%;
+  min-width: 200px;
+}
+
+.details_container {
+  width: 100%;
+  height: fit-content;
+  background-color: yellowgreen;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.image_trailer_container {
+  display: flex;
+  width: 100%;
+}
+
+.poster_size {
+  width: 100%;
+  height: 100%;
+  max-width: 520px;
+  max-height: 550px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.trailer_section {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+.trailer_container {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  padding-left: 5px;
+}
+
+.trailer_container iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  border: none;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .main_content {
+    width: 100%;
+  }
+
+  .left_column {
+    width: 0%;
+  }
+
+  .right_column {
+    width: 0%;
+  }
+
+  .details_container {
+    align-items: center;
+  }
+
+  .poster_size {
+    height: 320px;
+    width: fit-content;
+  }
+
+  .image_trailer_container {
+    background-color: fuchsia;
+    display: flex;
+    flex-direction: row;
+    /* height: fit-content; */
+    /* width: 100%;
+    height: 100%; */
+  }
+
+  .image_container {
+    justify-content: center;
+  }
+
+  .header_container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .image_container,
+  .details_container {
+    width: 100%;
+  }
+
+  .trailer_section {
+    /* padding: 20px 15px; */
+  }
+}
