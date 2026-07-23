@@ -33,6 +33,34 @@ const tmdb = axios.create({
   },
 });
 
+function findTrailer(videos = []) {
+  // Prefer an official YouTube trailer
+  const officialTrailer = videos.find(
+    (video) =>
+      video.site === "YouTube" &&
+      video.type === "Trailer" &&
+      video.official === true,
+  );
+
+  if (officialTrailer) {
+    return officialTrailer;
+  }
+
+  // Otherwise, use any YouTube trailer
+  const trailer = videos.find(
+    (video) => video.site === "YouTube" && video.type === "Trailer",
+  );
+
+  if (trailer) {
+    return trailer;
+  }
+
+  // Final fallback: use a teaser
+  return videos.find(
+    (video) => video.site === "YouTube" && video.type === "Teaser",
+  );
+}
+
 app.get("/", (req, res) => {
   if (!req.session.tmdbSessionId) {
     return res.render("login.ejs");
@@ -84,21 +112,68 @@ app.get("/homepage", async (req, res) => {
 });
 
 app.get("/movieDetails/:cardId", async (req, res) => {
-  const cardId = req.params.cardId;
-  console.log("cardId:", cardId);
+  const { cardId } = req.params;
 
-  const cardDetailsResult = await tmdb.get(`/movie/${cardId}`);
-  let cardDetails = cardDetailsResult.data;
-  console.log("cardDetails", cardDetails);
+  try {
+    const cardDetailsResult = await tmdb.get(`/movie/${cardId}`, {
+      params: {
+        append_to_response: "videos",
+      },
+    });
+
+    const cardDetails = cardDetailsResult.data;
+
+    const trailer = findTrailer(cardDetails.videos?.results || []);
+
+    console.log("Movie details:", cardDetails);
+    console.log("Selected trailer:", trailer);
+
+    return res.render("cardDetails.ejs", {
+      username: req.session.tmdbUsername,
+      details: cardDetails,
+      trailer,
+      mediaType: "movie",
+    });
+  } catch (error) {
+    console.error(
+      "Movie details error:",
+      error.response?.data || error.message,
+    );
+
+    return res.status(500).send("Could not load movie details");
+  }
 });
-
 app.get("/tvShowDetails/:cardId", async (req, res) => {
-  const cardId = req.params.cardId;
-  console.log("cardId:", cardId);
+  const { cardId } = req.params;
 
-  const cardDetailsResult = await tmdb.get(`/tv/${cardId}`);
-  let cardDetails = cardDetailsResult.data;
-  console.log("cardDetails", cardDetails);
+  try {
+    const cardDetailsResult = await tmdb.get(`/tv/${cardId}`, {
+      params: {
+        append_to_response: "videos",
+      },
+    });
+
+    const cardDetails = cardDetailsResult.data;
+
+    const trailer = findTrailer(cardDetails.videos?.results || []);
+
+    console.log("TV-show details:", cardDetails);
+    console.log("Selected trailer:", trailer);
+
+    return res.render("cardDetails.ejs", {
+      username: req.session.tmdbUsername,
+      details: cardDetails,
+      trailer,
+      mediaType: "tv",
+    });
+  } catch (error) {
+    console.error(
+      "TV-show details error:",
+      error.response?.data || error.message,
+    );
+
+    return res.status(500).send("Could not load TV-show details");
+  }
 });
 
 app.post("/login", async (req, res) => {
