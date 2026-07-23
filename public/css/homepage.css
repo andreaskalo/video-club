@@ -21,7 +21,7 @@ body {
   height: 100%;
 }
 
-.upcomingMovies{
+.moviesContainer{
   display: flex;
   flex-direction: column;
   align-items: start;

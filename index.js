@@ -46,15 +46,59 @@ app.get("/homepage", async (req, res) => {
     return res.redirect("/");
   }
 
-  const result = await tmdb.get("/movie/upcoming?language=en-US&page=1");
-  let upcomingMovies = result.data.results;
-  console.log("movies:",upcomingMovies);
-  
+  let isMovie = false;
+
+  const upcomingMoviesResult = await tmdb.get(
+    "/movie/upcoming?language=en-US&page=1",
+  );
+  let upcomingMovies = upcomingMoviesResult.data.results;
+
+  const topRatedMoviesResult = await tmdb.get(
+    "/movie/top_rated?language=en-US&page=1",
+  );
+  let topRatedMovies = topRatedMoviesResult.data.results;
+
+  const nowPlayingMoviesResult = await tmdb.get(
+    "/movie/now_playing?language=en-US&page=1",
+  );
+  let nowPlayingMovies = nowPlayingMoviesResult.data.results;
+
+  const topRatedTvShowsResult = await tmdb.get(
+    "/tv/top_rated?language=en-US&page=1",
+  );
+  let topRatedTvShows = topRatedTvShowsResult.data.results;
+
+  const onTheAirResult = await tmdb.get("/tv/on_the_air?language=en-US&page=1");
+  let onTheAirTvShows = onTheAirResult.data.results;
+
+  const popularTvShowsResult = await tmdb.get(
+    "/tv/popular?language=en-US&page=1",
+  );
+  let popularTvShows = popularTvShowsResult.data.results;
 
   return res.render("homepage.ejs", {
     username: req.session.tmdbUsername,
-    upcomingMovies: upcomingMovies,
+    movies: [upcomingMovies, nowPlayingMovies, topRatedMovies],
+    tvShows: [topRatedTvShows, onTheAirTvShows, popularTvShows],
   });
+});
+
+app.get("/movieDetails/:cardId", async (req, res) => {
+  const cardId = req.params.cardId;
+  console.log("cardId:", cardId);
+
+  const cardDetailsResult = await tmdb.get(`/movie/${cardId}`);
+  let cardDetails = cardDetailsResult.data;
+  console.log("cardDetails", cardDetails);
+});
+
+app.get("/tvShowDetails/:cardId", async (req, res) => {
+  const cardId = req.params.cardId;
+  console.log("cardId:", cardId);
+
+  const cardDetailsResult = await tmdb.get(`/tv/${cardId}`);
+  let cardDetails = cardDetailsResult.data;
+  console.log("cardDetails", cardDetails);
 });
 
 app.post("/login", async (req, res) => {
