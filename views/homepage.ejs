@@ -21,33 +21,32 @@
       <div class="main_content">
         <div class="moviesContainer">
           <h2>Upcoming Movies</h2>
-          <%- include("carousel.ejs", {movies:movies[0], isMovie:true}) %>
+          <%- include("carousel.ejs", {movies:movies[0], isMovie:"movie"}) %>
         </div>
         <div class="moviesContainer">
           <h2>Now Playing Movies</h2>
-          <%- include("carousel.ejs", {movies:movies[1],isMovie:true}) %>
+          <%- include("carousel.ejs", {movies:movies[1],isMovie:"movie"}) %>
         </div>
         <div class="moviesContainer">
           <h2>Top Rated Movies</h2>
-          <%- include("carousel.ejs", {movies:movies[2],isMovie:true}) %>
+          <%- include("carousel.ejs", {movies:movies[2],isMovie:"movie"}) %>
         </div>
         <div class="moviesContainer">
           <h2>Top Rated TV Shows</h2>
-          <%- include("carousel.ejs", {movies:tvShows[0],isMovie:false}) %>
+          <%- include("carousel.ejs", {movies:tvShows[0],isMovie:"tvShow"}) %>
         </div>
         <div class="moviesContainer">
           <h2>On The Air TV Shows</h2>
-          <%- include("carousel.ejs", {movies:tvShows[1],isMovie:false}) %>
+          <%- include("carousel.ejs", {movies:tvShows[1],isMovie:"tvShow"}) %>
         </div>
         <div class="moviesContainer">
           <h2>Popular TV Shows</h2>
-          <%- include("carousel.ejs", {movies:tvShows[2],isMovie:false}) %>
+          <%- include("carousel.ejs", {movies:tvShows[2],isMovie:"tvShow"}) %>
         </div>
       </div>
       <div class="right_column"></div>
     </div>
     <script src="/js/carousel.js"></script>
-    <script src="/js/card.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"

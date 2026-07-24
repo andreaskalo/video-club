@@ -1,0 +1,57 @@
+.actor-carousel {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.actor-carousel-viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.actor-carousel-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.4s ease;
+}
+
+.actor-carousel-button {
+  flex-shrink: 0;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.actor-carousel-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 992px) {
+  .actor-carousel-card {
+    flex-basis: calc((100% - 40px) / 2);
+  }
+}
+
+@media (max-width: 768px) {
+  .actor-carousel {
+    gap: 8px;
+    padding: 0 8px;
+  }
+
+  .actor-carousel-card {
+    flex-basis: 100%;
+  }
+
+   .actor-carousel-button {
+    display: none;
+  }
+
+  .actor-carousel-viewport {
+    touch-action: pan-y;
+  }
+}

@@ -61,6 +61,16 @@ function findTrailer(videos = []) {
   );
 }
 
+function convertDate(date) {
+  let splittedDate = date.split("-");
+
+  let year = splittedDate[0];
+  let month = splittedDate[1];
+  let day = splittedDate[2];
+
+  return year;
+}
+
 app.get("/", (req, res) => {
   if (!req.session.tmdbSessionId) {
     return res.render("login.ejs");
@@ -73,8 +83,6 @@ app.get("/homepage", async (req, res) => {
   if (!req.session.tmdbSessionId) {
     return res.redirect("/");
   }
-
-  let isMovie = false;
 
   const upcomingMoviesResult = await tmdb.get(
     "/movie/upcoming?language=en-US&page=1",
@@ -111,28 +119,33 @@ app.get("/homepage", async (req, res) => {
   });
 });
 
-app.get("/movieDetails/:cardId", async (req, res) => {
-  const { cardId } = req.params;
+app.get("/movieDetails/:isMovie/:cardId", async (req, res) => {
+  const { isMovie, cardId } = req.params;
 
   try {
     const cardDetailsResult = await tmdb.get(`/movie/${cardId}`, {
       params: {
-        append_to_response: "videos",
+        append_to_response: "videos,credits",
       },
     });
 
     const cardDetails = cardDetailsResult.data;
 
     const trailer = findTrailer(cardDetails.videos?.results || []);
+    const actors = cardDetails.credits?.cast || [];
 
     console.log("Movie details:", cardDetails);
     console.log("Selected trailer:", trailer);
+    console.log("Actors:", actors);
 
     return res.render("cardDetails.ejs", {
       username: req.session.tmdbUsername,
       details: cardDetails,
       trailer,
       mediaType: "movie",
+      convertDate: convertDate,
+      isMovie: isMovie,
+      actors: actors,
     });
   } catch (error) {
     console.error(
@@ -143,8 +156,8 @@ app.get("/movieDetails/:cardId", async (req, res) => {
     return res.status(500).send("Could not load movie details");
   }
 });
-app.get("/tvShowDetails/:cardId", async (req, res) => {
-  const { cardId } = req.params;
+app.get("/tvShowDetails/:isMovie/:cardId", async (req, res) => {
+  const { isMovie, cardId } = req.params;
 
   try {
     const cardDetailsResult = await tmdb.get(`/tv/${cardId}`, {
@@ -165,6 +178,8 @@ app.get("/tvShowDetails/:cardId", async (req, res) => {
       details: cardDetails,
       trailer,
       mediaType: "tv",
+      convertDate: convertDate,
+      isMovie: isMovie,
     });
   } catch (error) {
     console.error(

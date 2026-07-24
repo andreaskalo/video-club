@@ -11,37 +11,28 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/css/cardDetails.css" />
-    <link rel="stylesheet" href="/css/actorCard.css" />
-    <link rel="stylesheet" href="/css/actorCarousel.css" />
   </head>
   <body>
     <%- include("header.ejs", { username }) %>
-    <div class="main_container">
+    <div class="cardDetails_container">
       <div class="left_column"></div>
       <div class="main_content">
         <div class="header_container">
-          <div class="title_container">
-            <h2>
+          <div class="details_container">
+            <span>
               <%= details.title || details.name %>
-            </h2>
-            <ul class="below_header_details">
-              <li>
-                <%= isMovie === "movie" ? "Movie" : "TV Show" %>
-              </li>
-              <li>
-                <%= convertDate(details.release_date) %>
-              </li>
-              <li><%= details.runtime %>m</li>
-            </ul>
-            <div><i><%= details.tagline %></i></div>
+            </span>
+            <span>
+              <i><%= details.tagline %></i>
+            </span>
           </div>
         </div>
-        <div class="top_container">
+        <div class="image_trailer_container">
           <div class="image_container">
             <img
               src="https://image.tmdb.org/t/p/w500<%= details.poster_path %>"
               alt="<%= details.title || details.name || 'Poster' %>"
-              class="poster_size_card_details"
+              class="poster_size"
             />
           </div>
           <% if (trailer) { %>
@@ -70,33 +61,20 @@
           </div>
           <% } %>
         </div>
-        <div class="middle_container">
-          <h2>Featured Actors</h2>
-          <div class="actors">
-            <%- include("actorCarousel.ejs", {actors:actors}) %>
+        <div>
+          <div class="details_overview">
+            <h2>Overview</h2>
+            <%= details.overview %>
           </div>
-        </div>
-        <div class="bottom_container">
-          <div class="header_container">
-            <div class="title_container">
-              <h2>Genres</h2>
-              <ul class="below_header_details">
-                <% details.genres.forEach(genre => { %>
-                <li>
-                  <%= genre.name %>
-                </li>
-                <% }) %>
-              </ul>
-              <div>
-                <h2>Production Countries</h2>
+          <div class="production-companies">
+            <h2>Production Companies</h2>
 
-                <%= details.production_countries.map(country => country.name)
-                .join(", ") %>
-                <h2>Production Companies</h2>
-                <%= details.production_companies.map(company => company.name)
-                .join(", ") %>
-              </div>
-            </div>
+            <%= details.production_companies.map(company => company.name)
+            .join(", ") %>
+          </div>
+          <div class="release-date">
+            <h2>Release Date</h2>
+            <%= convertDate(details.release_date) %>
           </div>
         </div>
       </div>
@@ -107,6 +85,5 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
-    <script src="/js/actorCarousel.js"></script>
   </body>
 </html>
