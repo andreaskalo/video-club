@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="/css/cardDetails.css" />
     <link rel="stylesheet" href="/css/actorCard.css" />
     <link rel="stylesheet" href="/css/actorCarousel.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Righteous&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <%- include("header.ejs", { username }) %>
@@ -21,17 +27,45 @@
       <div class="main_content">
         <div class="header_container">
           <div class="title_container">
-            <h2>
-              <%= details.title || details.name %>
-            </h2>
+            <div class="title_star_container">
+              <h2 style="padding-right: 5px">
+                <%= details.title || details.name %> |
+              </h2>
+              <div class="star_container">
+                <img
+                  src="/images/star.png"
+                  height="30px"
+                  width="30px"
+                /><%= parseFloat(details.vote_average).toFixed(1) %>
+              </div>
+            </div>
+
             <ul class="below_header_details">
               <li>
                 <%= isMovie === "movie" ? "Movie" : "TV Show" %>
               </li>
               <li>
-                <%= convertDate(details.release_date) %>
+                <% if (isMovie === "movie") { %>
+                <%= details.release_date
+                ? convertDate(details.release_date,isMovie)
+                : "Release date unavailable"
+                %>
+                <% } else { %>
+                <%= details.first_air_date
+                ? convertDate(details.first_air_date,isMovie)
+                : "Unknown"
+                %>
+                -
+
+                <%= details.last_air_date
+                ? convertDate(details.last_air_date)
+                : "Present"
+                %>
+                <% } %>
               </li>
+              <% if (details.runtime) { %>
               <li><%= details.runtime %>m</li>
+              <% } %>
             </ul>
             <div><i><%= details.tagline %></i></div>
           </div>
@@ -71,6 +105,10 @@
           <% } %>
         </div>
         <div class="middle_container">
+          <h2>Overview</h2>
+          <div>
+            <%= details.overview %>
+          </div>
           <h2>Featured Actors</h2>
           <div class="actors">
             <%- include("actorCarousel.ejs", {actors:actors}) %>
@@ -79,19 +117,24 @@
         <div class="bottom_container">
           <div class="header_container">
             <div class="title_container">
-              <h2>Genres</h2>
-              <ul class="below_header_details">
-                <% details.genres.forEach(genre => { %>
-                <li>
-                  <%= genre.name %>
-                </li>
-                <% }) %>
-              </ul>
+              <div>
+                <h2>Genres</h2>
+                <ul class="bottom_information">
+                  <% details.genres.forEach(genre => { %>
+                  <li>
+                    <%= genre.name %>
+                  </li>
+                  <% }) %>
+                </ul>
+              </div>
+
               <div>
                 <h2>Production Countries</h2>
 
                 <%= details.production_countries.map(country => country.name)
                 .join(", ") %>
+              </div>
+              <div>
                 <h2>Production Companies</h2>
                 <%= details.production_companies.map(company => company.name)
                 .join(", ") %>

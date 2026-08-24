@@ -1,9 +1,8 @@
-.card_container {
+.actor_card_container {
   width: 100%;
   background-color: #90cea1;
   max-width: fit-content;
   border-radius: 10px;
-  cursor: pointer;
 }
 
 .poster_size {
@@ -17,10 +16,10 @@
 
 .actor_details_container {
   display: flex;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
 }
 
-.actor_rating{
+.actor_rating {
   display: flex;
   align-items: center;
 }

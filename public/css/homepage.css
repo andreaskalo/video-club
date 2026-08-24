@@ -2,6 +2,7 @@ html,
 body {
   margin: 0;
   height: 100%;
+  font-family: "Righteous", sans-serif;
 }
 
 .homepage_container {
@@ -21,7 +22,7 @@ body {
   height: 100%;
 }
 
-.moviesContainer{
+.moviesContainer {
   display: flex;
   flex-direction: column;
   align-items: start;

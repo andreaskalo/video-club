@@ -9,31 +9,28 @@ carousels.forEach((carousel) => {
 
   const nextButton = carousel.querySelector(".next-actors-button");
 
-  const actorCards  = carouselTrack.querySelectorAll(".actor-carousel-card");
-  
+  const actorCards = carouselTrack.querySelectorAll(".actor-carousel-card");
 
   let currentPage = 0;
 
   function getCardsPerPage() {
-    if (window.innerWidth <= 768) {
+    const width = window.innerWidth;
+
+    if (width <= 768) {
       return 1;
     }
 
-    if (window.innerWidth <= 992) {
-      return 3;
-    }
-
-    return 4;
+    return 2;
   }
 
   function getTotalPages() {
     const cardsPerPage = getCardsPerPage();
 
-    return Math.ceil(actorCards .length / cardsPerPage);
+    return Math.ceil(actorCards.length / cardsPerPage);
   }
 
   function updateCarousel() {
-    if (actorCards .length === 0) {
+    if (actorCards.length === 0) {
       previousButton.hidden = true;
       nextButton.hidden = true;
       return;
@@ -46,7 +43,7 @@ carousels.forEach((carousel) => {
       currentPage = totalPages - 1;
     }
 
-    const firstCard = actorCards [0];
+    const firstCard = actorCards[0];
 
     const cardWidth = firstCard.getBoundingClientRect().width;
 

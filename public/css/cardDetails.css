@@ -1,6 +1,7 @@
 html,
 body {
   margin: 0;
+  font-family: "Righteous", sans-serif;
 }
 
 .main_container {
@@ -11,18 +12,15 @@ body {
 
 .left_column {
   width: 25%;
-  background-color: blue;
 }
 
 .main_content {
   width: 50%;
   display: grid;
   grid-template-rows: 0.2fr 1fr 1fr;
-  background-color: aqua;
 }
 
 .header_container {
-  background-color: brown;
   padding: 20px;
 }
 
@@ -30,6 +28,19 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.title_star_container {
+  display: flex;
+  font-size: large;
+}
+
+.star_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
 }
 
 .title_container h2 {
@@ -50,7 +61,6 @@ body {
 }
 
 .top_container {
-  background-color: aliceblue;
   display: grid;
   grid-template-columns: 1fr 2fr;
   align-items: stretch;
@@ -60,7 +70,6 @@ body {
   display: block;
   height: 100%;
   width: 100%;
-  background-color: red;
 }
 
 .poster_size_card_details {
@@ -89,29 +98,30 @@ body {
 }
 
 .actors {
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   /* justify-content:flex-start; */
   align-items: center;
 }
 
-.bottom_container {
-  background-color: blueviolet;
-}
+.bottom_information {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-.title_tagline_container {
-  background-color: aliceblue;
+  margin: 6px 0 0;
+  padding: 0;
+
+  list-style: none;
 }
 
 .right_column {
   width: 25%;
-  background-color: green;
 }
 
 @media (max-width: 768px) {
   .left_column {
     width: 0%;
-    background-color: green;
   }
 
   .main_content {
@@ -120,6 +130,34 @@ body {
 
   .right_column {
     width: 0%;
-    background-color: green;
+  }
+
+  .actors {
+    height: fit-content;
+  }
+
+  .top_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+
+  .middle_container {
+    height: min-content;
+  }
+
+  .title_container h2 {
+    display: flex;
+    font-size: large;
+  }
+
+  .title_star_container img{
+    width: 15px;
+    height: 15px;
+  }
+
+  .title_star_container{
+    align-items: center;
   }
 }

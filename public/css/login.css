@@ -2,6 +2,7 @@ html,
 body {
   margin: 0;
   height: 100%;
+  font-family: "Righteous", sans-serif;
 }
 
 .form_container {
@@ -40,4 +41,16 @@ body {
 .header_one_container {
   display: flex;
   justify-content: center;
+}
+.form-floating{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.login_img_container{
+  background-color: red;
+  display: flex;
+  width: 100%;
 }

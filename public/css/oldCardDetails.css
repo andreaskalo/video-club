@@ -27,15 +27,9 @@ body {
   /* Do not use height: 100% here */
 }
 
-.left_column {
-  background-color: red;
-}
-
 .main_content {
   min-width: 0;
   min-height: 100vh;
-
-  background-color: gold;
 
   display: flex;
   flex-direction: column;
@@ -43,19 +37,13 @@ body {
   padding-bottom: 30px;
 }
 
-.right_column {
-  background-color: brown;
-}
-
 /* Header */
 .header_container {
   width: 100%;
-  background-color: aquamarine;
 }
 
 .details_container {
   width: 100%;
-  background-color: yellowgreen;
 
   display: flex;
   flex-direction: column;
@@ -100,14 +88,12 @@ body {
   width: 100%;
   max-width: 520px;
 
-  /* Let the image determine its own height */
   height: auto;
 
   object-fit: cover;
   border-radius: 10px;
 }
 
-/* Trailer */
 .trailer_section {
   width: 100%;
   min-width: 0;
@@ -119,8 +105,6 @@ body {
 .trailer_container {
   width: 100%;
   aspect-ratio: 16 / 9;
-
-  /* Do not use height: 100% */
 }
 
 .trailer_container iframe {
@@ -133,7 +117,6 @@ body {
   border-radius: 10px;
 }
 
-/* Text content */
 .details_overview,
 .production-companies,
 .release-date {
@@ -146,7 +129,6 @@ body {
   margin-bottom: 10px;
 }
 
-/* Tablets and smaller laptops */
 @media (max-width: 900px) {
   .cardDetails_container {
     display: block;
@@ -170,7 +152,6 @@ body {
   }
 }
 
-/* Phones */
 @media (max-width: 576px) {
   .details_container {
     font-size: 1.2rem;

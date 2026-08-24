@@ -10,13 +10,11 @@
 
   <div class="actor-carousel-viewport">
     <div class="actor-carousel-track">
-      <% actors
-        .filter(actor => actor.profile_path)
-        .forEach(actor => { %>
+      <% actors .filter(actor => actor.profile_path) .forEach(actor => { %>
 
-        <div class="actor-carousel-card">
-          <%- include("actorCard.ejs", { actor }) %>
-        </div>
+      <div class="actor-carousel-card">
+        <%- include("actorCard.ejs", { actor }) %>
+      </div>
 
       <% }) %>
     </div>
