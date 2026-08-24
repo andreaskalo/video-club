@@ -6,12 +6,13 @@
     "express": "^5.2.1",
     "express-session": "^1.19.0"
   },
-  "name": "movie-app",
+  "name": "video-club",
   "version": "1.0.0",
-  "description": "",
+  "description": "a movie/series discovery web app based on the TMDB API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -22,9 +23,9 @@
   "license": "ISC",
   "type": "module",
   "bugs": {
-    "url": "https://github.com/andreaskalo/movieAppRepo/issues"
+    "url": "https://github.com/andreaskalo/video-club/issues"
   },
-  "homepage": "https://github.com/andreaskalo/movieAppRepo#readme",
+  "homepage": "https://github.com/andreaskalo/video-club#readme",
   "devDependencies": {
     "prettier": "^3.9.6",
     "prettier-plugin-ejs": "^1.0.3"
