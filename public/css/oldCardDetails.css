@@ -1,0 +1,181 @@
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* Page columns */
+.cardDetails_container {
+  display: grid;
+
+  /*
+    The middle section can grow up to 1000px.
+    The left and right columns share the remaining space.
+  */
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1000px)
+    minmax(0, 1fr);
+
+  width: 100%;
+  min-height: 100vh;
+
+  /* Do not use height: 100% here */
+}
+
+.main_content {
+  min-width: 0;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  padding-bottom: 30px;
+}
+
+/* Header */
+.header_container {
+  width: 100%;
+}
+
+.details_container {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 15px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* Poster and trailer */
+.image_trailer_container {
+  display: grid;
+
+  /*
+    Poster gets less horizontal space.
+    Trailer gets more horizontal space.
+  */
+  grid-template-columns:
+    minmax(220px, 0.75fr)
+    minmax(0, 1.25fr);
+
+  align-items: start;
+  gap: 10px;
+
+  width: 100%;
+  padding: 10px;
+}
+
+.image_container {
+  width: 100%;
+  min-width: 0;
+
+  display: flex;
+  justify-content: center;
+}
+
+.poster_size {
+  display: block;
+
+  width: 100%;
+  max-width: 520px;
+
+  height: auto;
+
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.trailer_section {
+  width: 100%;
+  min-width: 0;
+
+  display: flex;
+  justify-content: center;
+}
+
+.trailer_container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.trailer_container iframe {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  border: none;
+  border-radius: 10px;
+}
+
+.details_overview,
+.production-companies,
+.release-date {
+  padding: 15px 20px;
+}
+
+.details_overview h2,
+.production-companies h2,
+.release-date h2 {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 900px) {
+  .cardDetails_container {
+    display: block;
+  }
+
+  .left_column,
+  .right_column {
+    display: none;
+  }
+
+  .main_content {
+    width: 100%;
+  }
+
+  .image_trailer_container {
+    grid-template-columns: 1fr;
+  }
+
+  .poster_size {
+    width: min(100%, 450px);
+  }
+}
+
+@media (max-width: 576px) {
+  .details_container {
+    font-size: 1.2rem;
+    padding: 12px;
+  }
+
+  .image_trailer_container {
+    padding: 0;
+    gap: 10px;
+  }
+
+  .poster_size {
+    width: 100%;
+    max-width: none;
+    border-radius: 0;
+  }
+
+  .trailer_container iframe {
+    border-radius: 0;
+  }
+
+  .details_overview,
+  .production-companies,
+  .release-date {
+    padding: 12px 15px;
+  }
+}

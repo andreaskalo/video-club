@@ -1,0 +1,30 @@
+<div class="actor-carousel">
+  <button
+    class="actor-carousel-button previous-actors-button"
+    type="button"
+    aria-label="Show previous actors"
+    hidden
+  >
+    &lt;
+  </button>
+
+  <div class="actor-carousel-viewport">
+    <div class="actor-carousel-track">
+      <% actors .filter(actor => actor.profile_path) .forEach(actor => { %>
+
+      <div class="actor-carousel-card">
+        <%- include("actorCard.ejs", { actor }) %>
+      </div>
+
+      <% }) %>
+    </div>
+  </div>
+
+  <button
+    class="actor-carousel-button next-actors-button"
+    type="button"
+    aria-label="Show next actors"
+  >
+    &gt;
+  </button>
+</div>

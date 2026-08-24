@@ -1,0 +1,11 @@
+<div class="actor_card_container" id="<%= actor.id %>">
+  <img
+    src="https://image.tmdb.org/t/p/w500<%= actor.profile_path %>"
+    alt="<%= actor.title || actor.name || 'actor' %>"
+    class="poster_size"
+  />
+
+  <div class="actor_details_container">
+    <span><%= actor?.name  || "Unknown actor" %></span>
+  </div>
+</div>

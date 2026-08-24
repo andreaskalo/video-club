@@ -1,7 +1,7 @@
 <a
-  href="<%= isMovie
-    ? `/movieDetails/${movie.id}`
-    : `/tvShowDetails/${movie.id}` %>"
+  href="<%= isMovie === "movie"
+    ? `/movieDetails/${isMovie}/${movie.id}`
+    : `/tvShowDetails/${isMovie}/${movie.id}` %>"
   style="text-decoration: none; color: white"
 >
   <div class="card_container" id="<%= movie.id %>">

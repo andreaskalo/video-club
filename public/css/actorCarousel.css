@@ -1,22 +1,22 @@
-.movie-carousel {
+.actor-carousel {
   display: flex;
   align-items: center;
   gap: 15px;
   width: 100%;
 }
 
-.movie-carousel-viewport {
+.actor-carousel-viewport {
   width: 100%;
   overflow: hidden;
 }
 
-.movie-carousel-track {
+.actor-carousel-track {
   display: flex;
   gap: 20px;
   transition: transform 0.4s ease;
 }
 
-.movie-carousel-button {
+.actor-carousel-button {
   flex-shrink: 0;
   width: 45px;
   height: 45px;
@@ -26,32 +26,32 @@
   cursor: pointer;
 }
 
-.movie-carousel-button:disabled {
+.actor-carousel-button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 
 @media (max-width: 992px) {
-  .movie-carousel-card {
+  .actor-carousel-card {
     flex-basis: calc((100% - 40px) / 2);
   }
 }
 
 @media (max-width: 768px) {
-  .movie-carousel {
+  .actor-carousel {
     gap: 8px;
     padding: 0 8px;
   }
 
-  .movie-carousel-card {
+  .actor-carousel-card {
     flex-basis: 100%;
   }
 
-  .movie-carousel-button {
+  .actor-carousel-button {
     display: none;
   }
 
-  .movie-carousel-viewport {
+  .actor-carousel-viewport {
     touch-action: pan-y;
   }
 }

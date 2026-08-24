@@ -46,7 +46,6 @@ function findTrailer(videos = []) {
     return officialTrailer;
   }
 
-  // Otherwise, use any YouTube trailer
   const trailer = videos.find(
     (video) => video.site === "YouTube" && video.type === "Trailer",
   );
@@ -61,6 +60,25 @@ function findTrailer(videos = []) {
   );
 }
 
+function convertDate(date, isMovie) {
+  if (!date) return;
+
+  const day = new Date();
+  let currentYear = day.getFullYear();
+
+  let splittedDate = date.split("-");
+
+  let splittedYear = splittedDate[0];
+  let splittedMonth = splittedDate[1];
+  let splittedDay = splittedDate[2];
+
+  if (currentYear == splittedYear.toString() && isMovie !== "movie") {
+    return " ";
+  }
+
+  return splittedYear;
+}
+
 app.get("/", (req, res) => {
   if (!req.session.tmdbSessionId) {
     return res.render("login.ejs");
@@ -73,8 +91,6 @@ app.get("/homepage", async (req, res) => {
   if (!req.session.tmdbSessionId) {
     return res.redirect("/");
   }
-
-  let isMovie = false;
 
   const upcomingMoviesResult = await tmdb.get(
     "/movie/upcoming?language=en-US&page=1",
@@ -111,28 +127,29 @@ app.get("/homepage", async (req, res) => {
   });
 });
 
-app.get("/movieDetails/:cardId", async (req, res) => {
-  const { cardId } = req.params;
+app.get("/movieDetails/:isMovie/:cardId", async (req, res) => {
+  const { isMovie, cardId } = req.params;
 
   try {
     const cardDetailsResult = await tmdb.get(`/movie/${cardId}`, {
       params: {
-        append_to_response: "videos",
+        append_to_response: "videos,credits",
       },
     });
 
     const cardDetails = cardDetailsResult.data;
 
-    const trailer = findTrailer(cardDetails.videos?.results || []);
 
-    console.log("Movie details:", cardDetails);
-    console.log("Selected trailer:", trailer);
+    const trailer = findTrailer(cardDetails.videos?.results || []);
+    const actors = cardDetails.credits?.cast || [];
 
     return res.render("cardDetails.ejs", {
       username: req.session.tmdbUsername,
       details: cardDetails,
       trailer,
-      mediaType: "movie",
+      convertDate: convertDate,
+      isMovie: isMovie,
+      actors: actors,
     });
   } catch (error) {
     console.error(
@@ -143,28 +160,28 @@ app.get("/movieDetails/:cardId", async (req, res) => {
     return res.status(500).send("Could not load movie details");
   }
 });
-app.get("/tvShowDetails/:cardId", async (req, res) => {
-  const { cardId } = req.params;
+app.get("/tvShowDetails/:isMovie/:cardId", async (req, res) => {
+  const { isMovie, cardId } = req.params;
 
   try {
     const cardDetailsResult = await tmdb.get(`/tv/${cardId}`, {
       params: {
-        append_to_response: "videos",
+        append_to_response: "videos,credits",
       },
     });
 
     const cardDetails = cardDetailsResult.data;
 
     const trailer = findTrailer(cardDetails.videos?.results || []);
-
-    console.log("TV-show details:", cardDetails);
-    console.log("Selected trailer:", trailer);
+    const actors = cardDetails.credits?.cast || [];
 
     return res.render("cardDetails.ejs", {
       username: req.session.tmdbUsername,
       details: cardDetails,
       trailer,
-      mediaType: "tv",
+      convertDate: convertDate,
+      isMovie: isMovie,
+      actors: actors,
     });
   } catch (error) {
     console.error(
@@ -180,19 +197,15 @@ app.post("/login", async (req, res) => {
   const { username, password, rememberMe } = req.body;
 
   try {
-    // STEP 1: Create a temporary request token
     const tokenResult = await tmdb.get("/authentication/token/new");
 
     const requestToken = tokenResult.data.request_token;
-
-    // STEP 2: Validate the user's TMDB username and password
     await tmdb.post("/authentication/token/validate_with_login", {
       username: username,
       password: password,
       request_token: requestToken,
     });
 
-    // STEP 3: Create a TMDB session
     const sessionResult = await tmdb.post("/authentication/session/new", {
       request_token: requestToken,
     });
@@ -205,11 +218,9 @@ app.post("/login", async (req, res) => {
     const shouldRememberUser = rememberMe === "on";
 
     if (shouldRememberUser) {
-      // Keep the Express login for 30 days
       req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
     }
 
-    // Make sure the session is saved before redirecting
     req.session.save((error) => {
       if (error) {
         console.error("Could not save session:", error);
@@ -219,9 +230,6 @@ app.post("/login", async (req, res) => {
       res.redirect("/");
     });
   } catch (error) {
-    console.log("STATUS:", error.response?.status);
-    console.log("TMDB ERROR:", error.response?.data);
-    console.log("MESSAGE:", error.message);
 
     res.status(500).send("Login failed");
   }
@@ -237,7 +245,6 @@ app.post("/logout", async (req, res) => {
 
     req.session.destroy((error) => {
       if (error) {
-        console.log("@Logout session error:", error);
         return res.status(500).send("Could not log out");
       }
 

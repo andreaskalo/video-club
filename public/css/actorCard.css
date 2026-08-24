@@ -1,31 +1,25 @@
-.card_container {
+.actor_card_container {
   width: 100%;
   background-color: #90cea1;
-  max-width: max-content;
+  max-width: fit-content;
   border-radius: 10px;
-  cursor: pointer;
 }
 
 .poster_size {
-  /* width: fit-content; */
-  /* height: fit-content; */
-  max-width: 350px;
-  /* height: 350px; */
+  width: fit-content;
+  height: fit-content;
+  width: 250px;
+  height: 350px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
-.movie_details_container {
+.actor_details_container {
   display: flex;
   justify-content: space-evenly;
-  width: 100%;
 }
 
-.movie_rating {
+.actor_rating {
   display: flex;
   align-items: center;
-}
-
-@media screen {
-  
 }
