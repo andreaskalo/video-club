@@ -1,7 +1,7 @@
 # Video Club
 
-Video Club is a web app for browsing through a variety of movies and TV Series.
-Users can browse through different categories of movies and TV Series. When the user selects a movie or a TV Series, detailed information about that movie or TV Series is displayed, such as trailers, ratings, and cast.
+Video Club is a web app for browsing through a variety of movies and TV series.
+Users can browse through different categories of movies and TV series. When the user selects a movie or a TV series, detailed information about that movie or TV series is displayed, such as trailers, ratings, and cast.
 Movie and TV data is fetched from the TMDB API.
 
 ## Preview
@@ -13,8 +13,8 @@ Movie and TV data is fetched from the TMDB API.
 
 - User login and session support.
 - Responsive design across different screen sizes.
-- Browse movies and TV Series by predefined categories.
-- View detailed information for each movie or TV Series.
+- Browse movies and TV series by predefined categories.
+- View detailed information for each movie or TV series.
 - Watch trailers.
 - View ratings and cast information.
 
@@ -52,17 +52,17 @@ Movie and TV data is fetched from the TMDB API.
 
    ```bash
    git clone https://github.com/andreaskalo/video-club.git
-
+   ```
 2. Navigate to the project directory:
    
    ```bash
    cd video-club
-
+   ```
 3. Install the dependencies:
 
    ```bash
    npm install
-
+   ```
 ### Environment Variables
 
 Create a `.env` file in the root directory based on `.env.example`.
@@ -90,7 +90,7 @@ npm start
 ```
 
 Then open:
-http://localhost:3000
+`http://localhost:3000`
 
 ### Credits
 
